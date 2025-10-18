@@ -35,7 +35,7 @@ jobs:
         run: docker pull ${{vars.USER_NAME1}}/edify
       - name: run the container
         run: |
-           docker container rm -rf Edify
+           docker container rm -f Edify
            docker run -dt --name Edify -p 80:80 ${{vars.USER_NAME1}}/edify
       - name: container list
         run: docker container ls -a
