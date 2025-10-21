@@ -13,8 +13,8 @@ jobs:
         with:
           username: ${{vars.USER_NAME1}}
           password: ${{secrets.PASSWORD1}}
-      - name: git push
-        run: git push ${{vars.USER_NAME1}}/edifytest
+      - name: docker push
+        run: docker push ${{vars.USER_NAME1}}/edifytest
   deploy:
     needs: build
     runs-on: self-hosted
