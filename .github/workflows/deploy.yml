@@ -16,10 +16,9 @@ jobs:
       - name: git push
         run: git push ${{vars.USER_NAME1}}/edifytest
   deploy:
+    needs: build
     runs-on: self-hosted
     steps:
-      - name: git pull
-        run: git pull ${{vars.USER_NAME1}}/edifytest
       - name: run the container
         run: docker container run  -dt --name edifytest -p 95:80 ${{vars.USER_NAME1}}/edifytest
           
