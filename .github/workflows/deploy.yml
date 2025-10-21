@@ -1,0 +1,25 @@
+name: mkedify-deploy
+on: workflow_dispatch
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: git clone
+        uses: actions/checkout@v5.0.0
+      - name: build the image
+        run: docker build -t ${{vars.USER_NAME1}}/edifytest .
+      - name: docker login
+        uses: docker/login-action@v3.6.0
+        with:
+          username: ${{vars.USER_NAME1}}
+          password: ${{secrets.PASSWORD1}}
+      - name: git push
+        run: git push ${{vars.USER_NAME1}}/edifytest
+  deploy:
+    runs-on: self-hosted
+    steps:
+      - name: git pull
+        run: git pull ${{vars.USER_NAME1}}/edifytest
+      - name: run the container
+        run: docker container run  -dt --name edifytest -p 95:80 ${{vars.USER_NAME1}}/edifytest
+          
