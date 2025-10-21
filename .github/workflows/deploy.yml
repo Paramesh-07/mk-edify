@@ -19,6 +19,7 @@ jobs:
     needs: build
     runs-on: self-hosted
     steps:
+      - name: pull the image
+        run: docker pull ${{vars.USER_NAME1}}/edifytest
       - name: run the container
-        run: docker container run  -dt --name edifytest -p 95:80 ${{vars.USER_NAME1}}/edifytest
-          
+        run: docker container run  -dt --name edifytest1 -p 96:80 ${{vars.USER_NAME1}}/edifytest
